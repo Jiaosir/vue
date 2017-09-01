@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue_分页</title>
+	<script type="text/javascript" src=../js/jquery-3.2.1.js></script>
+	<script type="text/javascript" src=../js/vue.min.js></script>
+	<style type="text/css">
+		.page {
+			list-style: none;
+			/*color: #000;*/
+		}
+		.page .fontcolor {
+			color: #019858;
+		}
+		.page li a {
+			width: 30px;
+			height: 30px;
+			border: solid 1px #d0d0d0;
+			float: left;
+			text-align: center;
+			line-height: 30px;
+			text-decoration: none;
+		}
+
+		.page li a:hover {
+			background-color: #01b468;
+			color: #fff;
+		}
+		.active {
+			background-color: #019858;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="test">
+	    <ul class="page">
+	    	<li v-for="pnum in count">
+	    		<!-- 使用href跳转时需要pnum变量生效需要使用“:href="pnum"” -->
+	    		<a v-bind:class="page==pnum?'active':'fontcolor'" v-on:click="alert(pnum);">
+	    			{{pnum}}
+	    		</a>
+	    	</li>
+	    </ul>
+	    <br>
+	    <p>
+	    	<input type="text" name="page" v-model="page" />
+	    </p>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el:"#test",
+		data:{
+			page: 1,
+			count: 10
+		}
+	});
+</script>
