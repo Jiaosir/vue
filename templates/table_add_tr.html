@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>操作表格</title>
+	<script type="text/javascript" src=../js/jquery-3.2.1.js></script>
+	<script type="text/javascript" src=../js/vue.min.js></script>
+	<style type="text/css">
+		.ioinfo, .right_border, .tab, .tab tbody,thead,td,th{
+			border-style: solid;
+			border-color: #BBBBBB;
+		}
+		.div_tab {
+			width: 600px;
+		}
+		.ioinfo {
+			width: 598px;
+			height: 300px;
+			border-width: 1px 1px 0 1px;
+		}
+		.ioinfo ul {
+			list-style: none;
+		}
+		.ioinfo ul li{
+			width: 250px;
+			height: 30px;
+		}
+		.right_border {
+			border-width: 0 1px 0 0;
+		}
+		.tab {
+			width: 600px;
+			border-width: 1px 0 0 0;
+		}
+		.tab tr {
+			height: 40px;
+		}
+		.tab th {
+			background-color: #42B983;
+			color: #fff;
+		}
+		.tab td,th {
+			border-width: 0 0 1px 1px;
+			width: 176px;
+			text-align: center;
+		}
+		.btn_false, .btn_true {
+			width: 67px;
+			height: 31px;
+			border-width: 0px;
+		}
+		.btn_true {
+			background-color: #009A61;
+			color: #fff;
+		}
+		.btn_true:hover {
+			background-color: #42B983;
+			color: #fff;
+		}
+		.btn_false {
+			background-color: #DADADA;
+			color: #009A61;
+		}
+		.btn_false:hover {
+			background-color: #F3F3F3;
+			color: #009A61;
+		}
+	</style>
+</head>
+<body>
+	<div id="tab" class="div_tab">
+		<div class="ioinfo">
+			<ul>
+				<li>
+					Name:&nbsp;<input type="text" name="name" v-model="name" />
+				</li>
+				<li>
+					Age:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="age" v-model="age" />
+				</li>
+				<li>
+					Sex:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="sex" v-model="sex" />
+				</li>
+				<li>
+					<input v-if="name!=''&& age!=''&&sex!=''" type="button" class="btn_true" value="添加" name="addinfo" v-on:click="addInfo" />
+					<input v-if="name==''|| age==''||sex==''" type="button" class="btn_false" value="添加" name="addinfo" />
+				</li>
+			</ul>
+		</div>
+		<div class="right_border">
+			<table class="tab" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Age</th>
+						<th>Sex</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody id="allinfo">
+					<tr v-for="people,index in peoples">
+						<td>{{people.name}}</td>
+						<td>{{people.age}}</td>
+						<td>{{people.sex}}</td>
+						<td v-on:click="delInfo(index)">delete</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#tab",
+		data: {
+			name: "",
+			age: "",
+			sex: "",
+			status: 0,
+			peoples: [{"name":"jony","age":28,"sex":"m"},{"name":"vava","age":27,"sex":"f"}],
+		},
+		methods: {
+			addInfo: function(){
+				var newPeople = {"name":this.name, "age":this.age, "sex":this.sex};
+				this.peoples.push(newPeople);
+			},
+			delInfo: function(index){
+				// alert(index);
+				this.peoples.splice(index,1);
+			}
+		}
+	});
+</script>
